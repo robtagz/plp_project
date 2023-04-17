@@ -1,0 +1,38 @@
+
+{% extends 'authenticate/base.html' %}
+
+{% block content %}
+
+<h3> Home page</h3>
+
+{% if user.is_authenticated %}
+	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
+	<p>Username: {{user.username}}</p>
+	
+	<p>Email: {{user.email}}</p>
+
+{% endif %}
+</br>
+
+<p><a href="{% url 'post-create' post.id %}">Add Update</a></p>
+
+<h1>Updates</h1>
+</br>
+{% for post in posts %}
+</br>
+		<h2> {{ post.title }}</h2>
+		<small>  Published on {{ post.published_at | date:"M d, Y" }} by {{ post.author | title}}</small>
+		<p>  {{ post.content }}</p>
+		<p>
+			<p>
+				<a href="{% url 'post-edit' post.id %}">Edit</a> 
+				<a href="{% url 'post-delete' post.id%}">Delete</a>
+			</p>
+	</br>
+		</p>
+</br>
+</br>
+	{% endfor %}
+
+
+{% endblock %}
